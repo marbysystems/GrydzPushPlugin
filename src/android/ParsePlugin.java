@@ -18,6 +18,10 @@ public class ParsePlugin extends CordovaPlugin {
     public static final String ACTION_GET_SUBSCRIPTIONS = "getSubscriptions";
     public static final String ACTION_SUBSCRIBE = "subscribe";
     public static final String ACTION_UNSUBSCRIBE = "unsubscribe";
+    public static final String ACTION_ENABLE_PUSH = "enablePush";
+    public static final String ACTION_DISABLE_PUSH = "disablePush";
+
+    public static boolean isPushEnabled = true;
 
     @Override
     public boolean execute(String action, JSONArray args, CallbackContext callbackContext) throws JSONException {
@@ -44,6 +48,14 @@ public class ParsePlugin extends CordovaPlugin {
         }
         if (action.equals(ACTION_UNSUBSCRIBE)) {
             this.unsubscribe(args.getString(0), callbackContext);
+            return true;
+        }
+        if (action.equals(ACTION_ENABLE_PUSH)) {
+            this.enablePush(callbackContext);
+            return true;
+        }
+        if (action.equals(ACTION_DISABLE_PUSH)) {
+            this.disablePush(callbackContext);
             return true;
         }
         return false;
@@ -111,5 +123,22 @@ public class ParsePlugin extends CordovaPlugin {
         });
     }
 
+    private void enablePush(final CallbackContext callbackContext) {
+        cordova.getThreadPool().execute(new Runnable() {
+            public void run() {
+                isPushEnabled = true;
+                callbackContext.success();
+            }
+        });
+    }
+
+    private void disablePush(final CallbackContext callbackContext) {
+        cordova.getThreadPool().execute(new Runnable() {
+            public void run() {
+                isPushEnabled = false;
+                callbackContext.success();
+            }
+        });
+    }
 }
 

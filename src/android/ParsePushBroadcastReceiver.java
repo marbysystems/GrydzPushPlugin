@@ -102,6 +102,10 @@ public class ParsePushBroadcastReceiver extends com.parse.ParsePushBroadcastRece
 
     @Override
     protected Notification getNotification(Context context, Intent intent) {
+        if (ParsePlugin.isPushEnabled == false) {
+            return null;
+        }
+
         Bundle extras = intent.getExtras();
         Random random = new Random();
         int contentIntentRequestCode = random.nextInt();
@@ -146,7 +150,7 @@ public class ParsePushBroadcastReceiver extends com.parse.ParsePushBroadcastRece
             .setContentTitle("BFFB")
             .setDeleteIntent(pDeleteIntent)
             .setSmallIcon(this.getSmallIconId(context, intent))
-            .setDefaults(Notification.DEFAULT_SOUND)
+            .setLights(0xffb081d8, 1000, 2000)
             .setStyle(new Notification.BigTextStyle().bigText(contentText))
             .build();
     }

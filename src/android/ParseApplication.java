@@ -8,7 +8,7 @@ import com.parse.ParseInstallation;
 import com.parse.PushService;
 import com.parse.ParsePush;
 
-import au.com.marby.grydz.CordovaApp;
+import au.com.marby.grydz.MainActivity;
 
 public class ParseApplication extends Application
 {
@@ -28,7 +28,7 @@ public class ParseApplication extends Application
 		// register device for parse
 		Parse.initialize(this, "X8KCzxkGGX15zmbwny4zSqUaB5gl1tOWS5lmcZc6", "icM5CdrtrDErQ4NwvtH2CnafbioOLm4qunnyQloQ");
     ParsePush.subscribeInBackground("");
-		PushService.setDefaultPushCallback(this, CordovaApp.class);
+		PushService.setDefaultPushCallback(this, MainActivity.class);
 		ParseInstallation.getCurrentInstallation().saveInBackground();
 	}
 }
