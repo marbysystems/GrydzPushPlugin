@@ -1,5 +1,7 @@
 package org.apache.cordova.core;
 
+import android.util.Log;
+
 import java.util.Set;
 
 import org.apache.cordova.CallbackContext;
@@ -12,6 +14,8 @@ import com.parse.ParseInstallation;
 import com.parse.PushService;
 
 public class ParsePlugin extends CordovaPlugin {
+    private final static String TAG = ParsePlugin.class.getSimpleName();
+
     public static final String ACTION_INITIALIZE = "initialize";
     public static final String ACTION_GET_INSTALLATION_ID = "getInstallationId";
     public static final String ACTION_GET_INSTALLATION_OBJECT_ID = "getInstallationObjectId";
@@ -126,6 +130,7 @@ public class ParsePlugin extends CordovaPlugin {
     private void enablePush(final CallbackContext callbackContext) {
         cordova.getThreadPool().execute(new Runnable() {
             public void run() {
+                Log.w(TAG, "Enabling Push");
                 isPushEnabled = true;
                 callbackContext.success();
             }
@@ -135,6 +140,7 @@ public class ParsePlugin extends CordovaPlugin {
     private void disablePush(final CallbackContext callbackContext) {
         cordova.getThreadPool().execute(new Runnable() {
             public void run() {
+                Log.w(TAG, "Disabling Push");
                 isPushEnabled = false;
                 callbackContext.success();
             }

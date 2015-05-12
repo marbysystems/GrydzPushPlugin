@@ -102,6 +102,8 @@ public class ParsePushBroadcastReceiver extends com.parse.ParsePushBroadcastRece
 
     @Override
     protected Notification getNotification(Context context, Intent intent) {
+        Log.w(TAG, "Received notification, push enabled status is " + String.valueOf(ParsePlugin.isPushEnabled));
+
         if (ParsePlugin.isPushEnabled == false) {
             return null;
         }
